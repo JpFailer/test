@@ -292,19 +292,26 @@ body {
     box-shadow: 0 20px 60px rgba(255, 204, 0, 0.3);
 }
 
-.hero__brain i {
-    font-size: 8rem;
-    color: var(--color-red);
+.hero__logo {
+    max-width: 200px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
     animation: pulse 2s infinite, rotate-brain 8s linear infinite;
-    filter: drop-shadow(0 0 20px rgba(255, 204, 0, 0.8));
-    text-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
+    filter: drop-shadow(0 0 20px rgba(193, 39, 45, 0.8));
+    transition: all 0.3s ease;
+}
+
+.hero__brain:hover .hero__logo {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 30px rgba(193, 39, 45, 1));
 }
 
 @keyframes rotate-brain {
     0% { transform: rotate(0deg); }
-    25% { transform: rotate(-5deg); }
+    25% { transform: rotate(-2deg); }
     50% { transform: rotate(0deg); }
-    75% { transform: rotate(5deg); }
+    75% { transform: rotate(2deg); }
     100% { transform: rotate(0deg); }
 }
 
