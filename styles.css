@@ -7,9 +7,9 @@
 
 :root {
     /* Colores de marca Fundacredesa */
-    --color-yellow: #FFCC00;
-    --color-blue: #2E86C1;
-    --color-celeste: #5DADE2;
+    --color-red: #C62828;
+    --color-green: #388E3C;
+    --color-navy: #1A237E;
 
     /* Colores adicionales */
     --color-white: #FFFFFF;
@@ -19,8 +19,8 @@
     --color-accent: #FF6B6B;
 
     /* Gradientes */
-    --gradient-primary: linear-gradient(135deg, var(--color-blue) 0%, var(--color-celeste) 100%);
-    --gradient-accent: linear-gradient(135deg, var(--color-yellow) 0%, #FFD700 100%);
+    --gradient-primary: linear-gradient(135deg, var(--color-navy) 0%, var(--color-green) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--color-red) 0%, #D32F2F 100%);
 
     /* Tipografía */
     --font-primary: 'Poppins', sans-serif;
@@ -75,7 +75,7 @@ body {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
-    border-bottom: 2px solid var(--color-yellow);
+    border-bottom: 2px solid var(--color-red);
     transition: var(--transition-normal);
 }
 
@@ -98,7 +98,7 @@ body {
 .nav__logo-icon {
     width: 50px;
     height: 50px;
-    background: var(--color-blue);
+    background: var(--color-navy);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -112,7 +112,7 @@ body {
     font-family: var(--font-secondary);
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--color-blue);
+    color: var(--color-navy);
     margin: 0;
 }
 
@@ -131,7 +131,7 @@ body {
 
 .nav__link {
     text-decoration: none;
-    color: var(--color-blue);
+    color: var(--color-navy);
     font-weight: 500;
     transition: var(--transition-fast);
     position: relative;
@@ -140,7 +140,7 @@ body {
 
 .nav__link:hover,
 .nav__link.active {
-    color: var(--color-celeste);
+    color: var(--color-green);
 }
 
 .nav__link::after {
@@ -150,7 +150,7 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--color-yellow);
+    background: var(--color-red);
     transition: var(--transition-fast);
 }
 
@@ -162,7 +162,7 @@ body {
 .nav__toggle {
     display: none;
     font-size: 1.5rem;
-    color: var(--color-blue);
+    color: var(--color-navy);
     cursor: pointer;
 }
 
@@ -236,7 +236,7 @@ body {
 }
 
 .hero__title-highlight {
-    color: var(--color-yellow);
+    color: var(--color-red);
     position: relative;
 }
 
@@ -247,7 +247,7 @@ body {
     left: 0;
     width: 100%;
     height: 3px;
-    background: var(--color-yellow);
+    background: var(--color-red);
     animation: expand 1.5s ease-out 0.5s forwards;
     transform: scaleX(0);
     transform-origin: left;
@@ -294,7 +294,7 @@ body {
 
 .hero__brain i {
     font-size: 8rem;
-    color: var(--color-yellow);
+    color: var(--color-red);
     animation: pulse 2s infinite, rotate-brain 8s linear infinite;
     filter: drop-shadow(0 0 20px rgba(255, 204, 0, 0.8));
     text-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
@@ -312,7 +312,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 2px solid var(--color-yellow);
+    border: 2px solid var(--color-red);
     border-radius: 50%;
     animation: ripple 2s infinite;
 }
@@ -358,7 +358,7 @@ body {
 .section__title {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
-    color: var(--color-blue);
+    color: var(--color-navy);
     margin-bottom: var(--spacing-sm);
     position: relative;
 }
@@ -371,7 +371,7 @@ body {
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: var(--color-yellow);
+    background: var(--color-red);
     border-radius: 2px;
 }
 
@@ -423,7 +423,7 @@ body {
 .video__play-btn {
     width: 80px;
     height: 80px;
-    background: var(--color-yellow);
+    background: var(--color-red);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -435,7 +435,7 @@ body {
 
 .video__play-btn:hover {
     transform: scale(1.1);
-    background: #FFD700;
+    background: #D32F2F;
 }
 
 .video__play-btn i {
@@ -470,17 +470,12 @@ body {
     padding: var(--spacing-md);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
-    border-left: 4px solid var(--color-yellow);
+    border-left: 4px solid var(--color-green);
     transition: var(--transition-normal);
 }
 
-.content__card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
-}
-
 .content__card h4 {
-    color: var(--color-blue);
+    color: var(--color-navy);
     margin-bottom: var(--spacing-xs);
     font-size: 1.2rem;
 }
@@ -504,7 +499,7 @@ body {
 }
 
 .stat__card {
-    background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-celeste) 100%);
+    background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-green) 100%);
     padding: var(--spacing-lg);
     border-radius: var(--border-radius-lg);
     text-align: center;
@@ -516,16 +511,16 @@ body {
 }
 
 .stat__card:nth-child(1) {
-    background: linear-gradient(135deg, var(--color-yellow) 0%, #FFD700 100%);
-    color: var(--color-dark);
+    background: linear-gradient(135deg, var(--color-red) 0%, #D32F2F 100%);
+    color: var(--color-white);
 }
 
 .stat__card:nth-child(2) {
-    background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-celeste) 100%);
+    background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-green) 100%);
 }
 
 .stat__card:nth-child(3) {
-    background: linear-gradient(135deg, var(--color-celeste) 0%, var(--color-blue) 100%);
+    background: linear-gradient(135deg, var(--color-green) 0%, var(--color-navy) 100%);
 }
 
 .stat__card:hover {
@@ -594,13 +589,13 @@ body {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
-    color: var(--color-blue);
+    color: var(--color-navy);
     margin-bottom: var(--spacing-md);
     font-size: 1.3rem;
 }
 
 .chart__title i {
-    color: var(--color-celeste);
+    color: var(--color-green);
 }
 
 .chart {
@@ -698,12 +693,12 @@ body {
 .goal__icon {
     width: 40px;
     height: 40px;
-    background: var(--color-yellow);
+    background: var(--color-red);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-dark);
+    color: var(--color-white);
     font-size: 1rem;
 }
 
@@ -715,7 +710,7 @@ body {
 }
 
 .strategy__card h3 {
-    color: var(--color-blue);
+    color: var(--color-navy);
     margin-bottom: var(--spacing-md);
     font-size: 1.5rem;
 }
@@ -739,19 +734,19 @@ body {
 }
 
 .strategy__border--yellow {
-    background: var(--color-yellow);
+    background: var(--color-red);
 }
 
 .strategy__border--celeste {
-    background: var(--color-celeste);
+    background: var(--color-green);
 }
 
 .strategy__border--blue {
-    background: var(--color-blue);
+    background: var(--color-navy);
 }
 
 .strategy__item h4 {
-    color: var(--color-blue);
+    color: var(--color-navy);
     margin-bottom: var(--spacing-xs);
     font-size: 1.1rem;
 }
@@ -771,7 +766,7 @@ body {
 }
 
 .quote__icon {
-    color: var(--color-yellow);
+    color: var(--color-red);
     font-size: 1.2rem;
     margin-bottom: var(--spacing-xs);
 }
@@ -847,12 +842,12 @@ body {
 .value__icon {
     width: 60px;
     height: 60px;
-    background: var(--color-yellow);
+    background: var(--color-red);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-dark);
+    color: var(--color-white);
     font-size: 1.5rem;
     transition: var(--transition-normal);
 }
@@ -868,7 +863,7 @@ body {
 
 /* ========== PIE DE PÁGINA ========== */
 .footer {
-    background: var(--color-blue);
+    background: var(--color-navy);
     padding: var(--spacing-lg) 0;
 }
 
@@ -889,12 +884,12 @@ body {
 .footer__logo-icon {
     width: 40px;
     height: 40px;
-    background: var(--color-yellow);
+    background: var(--color-red);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-dark);
+    color: var(--color-white);
 }
 
 .footer__logo-text h3 {
@@ -1010,7 +1005,7 @@ body {
         height: 220px;
     }
 
-    .hero__brain i {
+.hero__brain i {
         font-size: 5rem;
     }
 
@@ -1147,13 +1142,13 @@ body {
 
 /* Estilos de foco para accesibilidad */
 *:focus {
-    outline: 2px solid var(--color-yellow);
+    outline: 2px solid var(--color-red);
     outline-offset: 2px;
 }
 
 .btn:focus,
 .nav__link:focus {
-    outline: 3px solid var(--color-yellow);
+    outline: 3px solid var(--color-red);
     outline-offset: 2px;
 }
 
