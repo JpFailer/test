@@ -1,5 +1,7 @@
+modules = ["python-3.11"]
+
 [workflows]
-runButton = "Run Python Server"
+runButton = "Project"
 
 [[workflows.workflow]]
 name = "Project"
@@ -27,3 +29,9 @@ mode = "sequential"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "python3 app.py"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[nix]
