@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundacredesa - Salud Mental en Venezuela</title>
+    <meta name="description" content="Fundacredesa: Generando conciencia sobre la salud mental en Venezuela. Conoce nuestros datos estadísticos y herramientas para el bienestar mental.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS crítico */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #1A1A1A;
+            overflow-x: hidden;
+        }
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2E86C1 0%, #5DADE2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loading-brain {
+            font-size: 4rem;
+            color: #FFCC00;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <!-- ========== PANTALLA DE CARGA ========== -->
+    <div class="loading" id="loading">
+        <div class="loading-brain">
+            <i class="fas fa-brain"></i>
+        </div>
+    </div>
+    <!-- ========== ENCABEZADO/NAVEGACIÓN ========== -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <div class="nav__container">
+                <div class="nav__logo">
+                    <img src="images/logo_fundacredesa.png" alt="Fundacredesa Logo" class="nav__logo-image">
+                    <div class="nav__logo-text">
+                        <h2>Fundacredesa</h2>
+                        <span>Salud Mental Venezuela</span>
+                    </div>
+                </div>
+                
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#inicio" class="nav__link active">Inicio</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#presentacion" class="nav__link">Presentación</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#estadisticas" class="nav__link">Estadísticas</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#mision" class="nav__link">Misión</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== SECCIÓN INICIO ========== -->
+    <section class="hero" id="inicio">
+        <div class="floating-elements">
+            <div class="floating-element" style="--delay: 0s; --duration: 8s;"></div>
+            <div class="floating-element" style="--delay: 2s; --duration: 12s;"></div>
+            <div class="floating-element" style="--delay: 4s; --duration: 10s;"></div>
+            <div class="floating-element" style="--delay: 1s; --duration: 15s;"></div>
+            <div class="floating-element" style="--delay: 3s; --duration: 9s;"></div>
+        </div>
+        <div class="hero__container">
+            <div class="hero__content">
+                <h1 class="hero__title">
+                    El Poder de la <span class="hero__title-highlight">Mente Humana</span>
+                </h1>
+                <p class="hero__description">
+                    Un desafío en Venezuela: Conscientizando sobre la salud mental y brindando herramientas para el bienestar
+                </p>
+                <div class="hero__buttons">
+                    <p class="hero__cta">Descubre más sobre la salud mental en Venezuela explorando nuestro contenido.</p>
+                </div>
+            </div>
+            <div class="hero__visual">
+                <div class="hero__brain magic-brain">
+                    <i class="fas fa-brain"></i>
+                    <div class="hero__pulse"></div>
+                    <div class="brain-particles"></div>
+                </div>
+            </div>
+        </div>
+        <div class="hero__scroll">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN PRESENTACIÓN ========== -->
+    <section class="presentation" id="presentacion">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Presentación</h2>
+                <p class="section__subtitle">Conoce la realidad de la salud mental en Venezuela</p>
+            </div>
+            
+            <div class="video__container">
+                <div class="video__player" id="video-player">
+                    <div class="video__placeholder">
+                        <div class="video__play-btn" onclick="playVideo()">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video__info">
+                            <h3>El Poder de la Mente Humana: Un Desafío en Venezuela</h3>
+                            <p>Descubre cómo la situación actual afecta la salud mental de los venezolanos</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="presentation__content">
+                    <div class="content__card">
+                        <h4>A diferencia de cualquier otra criatura...</h4>
+                        <p>El ser humano posee un intelecto asombroso. La capacidad de la autocrítica y el pensamiento profundo nos permiten discernir entre el bien y el mal de nuestras acciones.</p>
+                    </div>
+                    <div class="content__card">
+                        <h4>La Tormenta Perfecta</h4>
+                        <p>Para los venezolanos, esta capacidad se encuentra bajo una presión inmensa, dada la realidad tan difícil que enfrentamos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN ESTADÍSTICAS ========== -->
+    <section class="statistics" id="estadisticas">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Estadísticas Alarmantes</h2>
+                <p class="section__subtitle">Datos que revelan la prevalencia de depresión, ansiedad e ideaciones suicidas</p>
+            </div>
+            
+            <div class="stats__grid">
+                <div class="stat__card animate-on-scroll" data-number="53">
+                    <div class="stat__number">53</div>
+                    <div class="stat__label">de 177 personas</div>
+                    <div class="stat__description">Síntomas de ansiedad y depresión</div>
+                    <div class="stat__location">Parroquia La Vega, Caracas</div>
+                    <div class="stat__progress">
+                        <div class="stat__progress-bar" data-width="30"></div>
+                    </div>
+                </div>
+                
+                <div class="stat__card animate-on-scroll" data-number="30">
+                    <div class="stat__number">30%</div>
+                    <div class="stat__label">Prevalencia estimada</div>
+                    <div class="stat__description">Trastornos de salud mental</div>
+                    <div class="stat__location">Población venezolana</div>
+                    <div class="stat__progress">
+                        <div class="stat__progress-bar" data-width="30"></div>
+                    </div>
+                </div>
+                
+                <div class="stat__card animate-on-scroll" data-number="85">
+                    <div class="stat__number">Alto</div>
+                    <div class="stat__label">Impacto Social</div>
+                    <div class="stat__description">Crisis económica y migración</div>
+                    <div class="stat__location">Factores de riesgo</div>
+                    <div class="stat__progress">
+                        <div class="stat__progress-bar" data-width="85"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="charts__container">
+                <div class="chart__card">
+                    <h3 class="chart__title">
+                        <i class="fas fa-chart-pie"></i>
+                        Distribución de Síntomas
+                    </h3>
+                    <div class="chart" id="symptoms-chart"></div>
+                </div>
+                
+                <div class="chart__card">
+                    <h3 class="chart__title">
+                        <i class="fas fa-chart-bar"></i>
+                        Factores de Riesgo
+                    </h3>
+                    <div class="chart" id="risk-factors-chart"></div>
+                </div>
+            </div>
+            
+            <div class="alert__box">
+                <div class="alert__icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="alert__content">
+                    <h4>Datos Preocupantes</h4>
+                    <ul>
+                        <li><strong>Economía inestable:</strong> Impacto directo en el bienestar mental</li>
+                        <li><strong>Migración masiva:</strong> Separación familiar y pérdida de vínculos</li>
+                        <li><strong>Secuelas de la pandemia:</strong> Aislamiento e incertidumbre prolongada</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN MISIÓN ========== -->
+    <section class="mission" id="mision">
+        <div class="container">
+            <div class="mission__content">
+                <div class="mission__text">
+                    <h2 class="section__title">Sembrando Conciencia, Cosechando Bienestar</h2>
+                    <p class="mission__description">
+                        Con resultados contundentes en mano, <strong>Fundacredesa</strong> asumió la titánica tarea de generar conciencia sobre esta problemática vital.
+                    </p>
+                    <p class="mission__objective">
+                        Nuestro objetivo: <strong>inculcar el concepto de salud mental</strong> en cada venezolano, brindándoles las herramientas necesarias para afrontar las situaciones caóticas que la vida les presente.
+                    </p>
+                    
+                    <div class="mission__goals">
+                        <div class="goal__item">
+                            <div class="goal__icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <span>Generar conciencia sobre salud mental</span>
+                        </div>
+                        <div class="goal__item">
+                            <div class="goal__icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <span>Brindar herramientas para el bienestar</span>
+                        </div>
+                        <div class="goal__item">
+                            <div class="goal__icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span>Alcanzar a las mentes jóvenes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mission__strategy">
+                    <div class="strategy__card">
+                        <h3>Nuestra Estrategia Digital</h3>
+                        <div class="strategy__items">
+                            <div class="strategy__item">
+                                <div class="strategy__border strategy__border--yellow"></div>
+                                <h4>Plataformas Digitales</h4>
+                                <p>Aprovechamos el potencial de las tecnologías para llegar a más personas</p>
+                            </div>
+                            <div class="strategy__item">
+                                <div class="strategy__border strategy__border--celeste"></div>
+                                <h4>Enfoque en Jóvenes</h4>
+                                <p>Protegemos y equipamos a las nuevas generaciones</p>
+                            </div>
+                            <div class="strategy__item">
+                                <div class="strategy__border strategy__border--blue"></div>
+                                <h4>Prevención</h4>
+                                <p>Salvaguardamos la salud mental de factores de riesgo</p>
+                            </div>
+                        </div>
+                        
+                        <div class="quote__box">
+                            <i class="fas fa-quote-left quote__icon"></i>
+                            <p>"El ser humano posee un intelecto asombroso"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LLAMADO A LA ACCIÓN -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta__content">
+                <h2>Una Nueva Frontera</h2>
+                <p>La capacidad de autocrítica y pensamiento profundo nos permite discernir entre el bien y el mal, reflexionar sobre nuestro entorno y comprender el impacto en nuestro día a día.</p>
+                
+                <div class="cta__values">
+                    <div class="value__item">
+                        <div class="value__icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <span>Bienestar</span>
+                    </div>
+                    <div class="value__item">
+                        <div class="value__icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <span>Protección</span>
+                    </div>
+                    <div class="value__item">
+                        <div class="value__icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <span>Conocimiento</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PIE DE PÁGINA/Footer ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__logo">
+                    <div class="footer__logo-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="footer__logo-text">
+                        <h3>Fundacredesa</h3>
+                        <span>Salud Mental Venezuela</span>
+                    </div>
+                </div>
+                <div class="footer__copyright">
+                    <p>&copy; 2024 Fundacredesa. Comprometidos con la salud mental en Venezuela.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="enhanced-animations.js"></script>
+    
+    <!-- ========== CHATBASE CHATBOT ========== -->
+    <script>
+        (function(){
+          if(!window.chatbase || window.chatbase("getState") !== "initialized"){
+            window.chatbase = (...arguments) => {
+              if(!window.chatbase.q){ window.chatbase.q = [] }
+              window.chatbase.q.push(arguments)
+            };
+            window.chatbase = new Proxy(window.chatbase, {
+              get(target, prop){
+                if(prop === "q") return target.q;
+                return (...args) => target(prop, ...args)
+              }
+            });
+          }
+
+          const onLoad = function(){
+            const script = document.createElement("script");
+            script.src = "https://www.chatbase.co/embed.min.js";
+            script.id = "mSisi1yU3svQBS_6uNfuy";
+            script.domain = "www.chatbase.co";
+            document.body.appendChild(script);
+          };
+
+          if(document.readyState === "complete"){
+            onLoad();
+          } else {
+            window.addEventListener("load", onLoad);
+          }
+        })();
+    </script>
+</body>
+</html>
