@@ -260,10 +260,6 @@ body {
     max-width: 500px;
 }
 
-<div class="hero__buttons">
-                    <p class="hero__cta">Descubre más sobre la salud mental en Venezuela explorando nuestro contenido.</p>
-                </div>
-
 .hero__visual {
     display: flex;
     justify-content: center;
@@ -1494,4 +1490,90 @@ body {
     0% { left: -100%; }
     100% { left: 100%; }
 }
-/* Los botones de la sección hero han sido eliminados y reemplazados con un párrafo descriptivo, simplificando la interfaz de usuario. */
+/* Los botones de l/* ========== SECCIÓN PROPUESTAS TECNOLÓGICAS ========== */
+.propuestas-tecnologicas {
+    background-color: var(--color-light-gray);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+}
+
+.propuestas-tecnologicas .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+}
+
+.propuestas-tecnologicas .section__title {
+    color: var(--color-navy);
+    margin-bottom: var(--spacing-sm);
+}
+
+.propuestas-tecnologicas .section__subtitle,
+.propuestas-tecnologicas .section__description {
+    color: var(--color-gray);
+    max-width: 800px;
+    margin: 0 auto var(--spacing-md);
+    line-height: 1.8;
+}
+
+.propuestas__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.propuesta__item {
+    background-color: var(--color-white);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 5px solid var(--color-green); /* Línea de color */
+}
+
+.propuesta__item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.propuesta__item h3 {
+    color: var(--color-red); /* Color de título */
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.5rem;
+}
+
+.propuesta__item p {
+    color: var(--color-dark);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* Responsividad para la sección de propuestas */
+@media (max-width: 768px) {
+    .propuestas__grid {
+        grid-template-columns: 1fr;
+    }
+}
+#info-estado {
+    max-width: 700px;
+    margin: 2.5rem auto 0 auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(67,160,71,0.08);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 1.1rem;
+    color: #222;
+    line-height: 1.6;
+    text-align: left;
+    overflow-y: auto;
+    max-height: 400px;
+    display: none;
+}
+#info-estado h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #1976d2;
+}

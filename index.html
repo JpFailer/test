@@ -43,6 +43,192 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
         }
+
+        /* DEBUG: Forzar visibilidad y color en propuestas tecnológicas */
+        .propuesta__item, .propuesta__item * {
+            color: #111 !important;
+            background: #fff !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+        .propuestas__grid {
+            display: grid !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        /* DEBUG EXTRA: Forzar visibilidad y quitar transformaciones/filtros de animaciones */
+        .animate-on-scroll {
+            opacity: 1 !important;
+            filter: none !important;
+            transform: none !important;
+            transition: none !important;
+            color: #111 !important;
+        }
+
+        /* Ajuste de tamaño para el logo en la esquina superior izquierda */
+        .nav__logo-image {
+            height: 48px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Estilo profesional y elegante para la pantalla de inicio (ajustado) */
+        .hero__title {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #1a237e;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+            text-shadow: none !important;
+        }
+        .hero__title-highlight {
+            color: #FFD600 !important; /* Amarillo fuerte */
+            background: none;
+            border-bottom: 4px solid #43A047; /* Verde */
+            padding-bottom: 2px;
+            text-shadow: none !important;
+        }
+        .hero__description {
+            font-size: 1.25rem;
+            color: #374151;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.2px;
+        }
+        .hero__cta {
+            font-size: 1.1rem;
+            color: #263238;
+            font-weight: 500;
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+        }
+
+        /* Ajuste visual para la sección Propuestas Tecnológicas */
+        #propuestas-tecnologicas {
+            padding-top: 4rem !important;
+            padding-bottom: 3rem;
+        }
+        #propuestas-tecnologicas .section__title,
+        #propuestas-tecnologicas .section__subtitle {
+            text-align: center !important;
+        }
+        #propuestas-tecnologicas .section__title {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 2.8rem;
+        }
+        #propuestas-tecnologicas .section__subtitle {
+            margin-bottom: 2.5rem;
+            font-size: 1.3rem;
+        }
+
+        /* Estilos para la sección ¿Quiénes somos? - versión artística (opacidad aún menor) */
+        .quienes-somos {
+            position: relative;
+            padding: 5rem 0 4rem 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.65) 60%, rgba(67,160,71,0.08)), url('Portada 002.jpg') center/cover no-repeat;
+            min-height: 600px;
+            overflow: hidden;
+        }
+        .quienes-somos::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.38);
+            z-index: 1;
+        }
+        .quienes-somos .container {
+            position: relative;
+            z-index: 2;
+        }
+        .quienes-somos .section__title {
+            margin-bottom: 0.5rem;
+            font-size: 2.7rem;
+            text-align: center;
+            color: #1a237e;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        .quienes-somos .section__subtitle {
+            margin-bottom: 2.2rem;
+            font-size: 1.25rem;
+            text-align: center;
+            color: #388e3c;
+            font-weight: 500;
+        }
+        .quienes__content {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            text-align: left;
+        }
+        .quienes__text {
+            max-width: 540px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(67,160,71,0.08);
+            padding: 2rem 2.2rem 1.5rem 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .quienes__desc {
+            font-size: 1.08rem;
+            color: #222;
+            margin-bottom: 1.5rem;
+        }
+        .quienes__sub {
+            font-size: 1.3rem;
+            color: #1976d2;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .quienes__subdesc {
+            font-size: 1.05rem;
+            color: #444;
+            margin-bottom: 1.2rem;
+        }
+        .quienes__img-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .quienes__img-pres {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 4px 24px rgba(25, 118, 210, 0.13);
+            border: 4px solid #fff;
+            background: #e3f2fd;
+        }
+        .quienes__img-pres-name {
+            font-size: 1.1rem;
+            color: #1a237e;
+            font-weight: 600;
+            text-align: center;
+        }
+        @media (max-width: 900px) {
+            .quienes__content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .quienes__text {
+                padding: 1.5rem 1rem;
+            }
+        }
     </style>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="animations.css">
@@ -72,6 +258,9 @@
                             <a href="#inicio" class="nav__link active">Inicio</a>
                         </li>
                         <li class="nav__item">
+                            <a href="#quienes-somos" class="nav__link">¿Quiénes somos?</a>
+                        </li>
+                        <li class="nav__item">
                             <a href="#presentacion" class="nav__link">Presentación</a>
                         </li>
                         <li class="nav__item">
@@ -79,6 +268,13 @@
                         </li>
                         <li class="nav__item">
                             <a href="#mision" class="nav__link">Misión</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#propuestas-tecnologicas" class="nav__link">Propuestas tecnológicas</a>
+                        </li>
+                    </ul>
+                </div>
+                            
                         </li>
                     </ul>
                 </div>
@@ -119,19 +315,13 @@
                 </div>
             </div>
         </div>
-        <div class="hero__scroll">
-            <i class="fas fa-chevron-down"></i>
-        </div>
     </section>
 
     <!-- ========== SECCIÓN PRESENTACIÓN ========== -->
-    <section class="presentation" id="presentacion">
+    <section class="presentacion" id="presentacion">
         <div class="container">
-            <div class="section__header">
-                <h2 class="section__title">Presentación</h2>
-                <p class="section__subtitle">Conoce la realidad de la salud mental en Venezuela</p>
-            </div>
-            
+            <h2 class="section__title">Presentación</h2>
+            <p class="section__subtitle">Conoce la realidad de la salud mental en Venezuela</p>
             <div class="video__container">
                 <div class="video__player" id="video-player">
                     <div class="video__placeholder">
@@ -144,7 +334,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="presentation__content">
                     <div class="content__card">
                         <h4>A diferencia de cualquier otra criatura...</h4>
@@ -162,6 +351,17 @@
     <!-- ========== SECCIÓN ESTADÍSTICAS ========== -->
     <section class="statistics" id="estadisticas">
         <div class="container">
+            <div class="venezuela-map-container" style="margin:2rem 0 2.5rem 0; text-align:center;">
+                <h2 class="section__title">Mapa Interactivo de Venezuela</h2>
+                <iframe 
+                    src="mapa-venezuela-master/index.html" 
+                    width="1100" 
+                    height="600" 
+                    style="border:2px solid #ccc; border-radius:12px; background:#fff; box-shadow:0 4px 24px rgba(67,160,71,0.08);"
+                    title="Mapa vectorizado de Venezuela"
+                    loading="lazy">
+                </iframe>
+            </div>
             <div class="section__header">
                 <h2 class="section__title">Hallazgos</h2>
                 <p class="section__subtitle">Datos que revelan la prevalencia de depresión, ansiedad e ideaciones suicidas</p>
@@ -233,6 +433,46 @@
         </div>
     </section>
 
+    <!-- ========== MAPA INTERACTIVO DE VENEZUELA ========== -->
+    <section class="venezuela-map-section" id="venezuela-mapa" style="padding: 3rem 0 2rem 0; background: #f5f7fa;">
+        <div class="container">
+            <h2 class="section__title" style="text-align:center; margin-bottom:1.2rem;">Mapa Interactivo de Venezuela</h2>
+            <div style="display:flex; justify-content:center;">
+                <iframe 
+                    src="mapa-venezuela-master/index.html" 
+                    width="1100" 
+                    height="600" 
+                    style="border:2px solid #ccc; border-radius:12px; background:#fff; box-shadow:0 4px 24px rgba(67,160,71,0.08);"
+                    title="Mapa vectorizado de Venezuela"
+                    loading="lazy">
+                </iframe>
+            </div>
+            <div id="info-estado"></div>
+        </div>
+    </section>
+
+    <section id="propuestas-tecnologicas" class="propuestas-tecnologicas section animate-on-scroll">
+    <div class="container">
+        <h2 class="section__title animate-on-scroll">Propuestas Tecnológicas</h2>
+        <p class="section__subtitle animate-on-scroll">
+            En Fundacredesa, exploramos y aplicamos soluciones tecnológicas innovadoras para potenciar la salud mental en Venezuela.
+        </p>
+
+        <div class="propuestas__grid">
+            <div class="propuesta__item animate-on-scroll">
+                <h3>Plataforma de psicoeducación en línea</h3>
+                <p>Tenemos la visión de desarrollar PsicoEduca, una innovadora aplicación que transformará la manera en que las personas interactúan con su salud mental. Nuestra propuesta es construir una plataforma de psicoeducación en línea que, no solo educará y mejorará el bienestar mental de los usuarios, sino que también los mantendrá enganchados y motivados a través de una experiencia gamificada y gratificante.</p>
+            </div>
+            <div class="propuesta__item animate-on-scroll">
+                <h3>Memory vision</h3>
+                <p>Es un sistema capaz de diagnosticar y monitorear a personas que padecen alzheimer, combina diagnóstico temprano y monitoreo continuo con tecnologías avanzadas de Inteligencia Artificial.</p>
+            </div>
+        </div>
+        <p class="section__description animate-on-scroll" style="margin-top: 2.5rem;">
+            Nuestras iniciativas tecnológicas están diseñadas para ser accesibles, seguras y efectivas, adaptándose a las necesidades de la población venezolana para construir un futuro con mejor salud mental.
+        </p>
+    </div>
+    </section>
     <!-- ========== SECCIÓN MISIÓN ========== -->
     <section class="mission" id="mision">
         <div class="container">
@@ -330,6 +570,28 @@
         </div>
     </section>
 
+    <!-- ========== SECCIÓN QUIÉNES SOMOS ========== -->
+    <section class="quienes-somos section animate-on-scroll" id="quienes-somos">
+        <div class="container">
+            <h2 class="section__title animate-on-scroll">¿Quiénes somos?</h2>
+            <p class="section__subtitle animate-on-scroll">
+                La Fundación Centro de Estudios sobre Crecimiento y Desarrollo de la Población Venezolana (Fundacredesa), creada el 13 de Julio de 1976 por el Dr. Méndez Castellano. Con el objetivo de orientar su acción hacia las investigaciones en la población venezolana, a través de los estudios de Crecimiento y Desarrollo Humano y estudios sobre Condiciones de Vida en el país.
+            </p>
+            <div class="quienes__content">
+                <div class="quienes__text">
+                    <div class="quienes__sub">¿Qué hacemos?</div>
+                    <div class="quienes__subdesc">
+                        Realizamos estudios multidisciplinarios con el propósito de obtener patrones de referencias nacionales en materia de crecimiento y desarrollo humano, así como general información clave para el diseño de políticas públicas y programas orientados a mejorar las condiciones de vida de la población.
+                    </div>
+                </div>
+                <div class="quienes__img-box">
+                    <img src="Isis_Ochoa.jpg" alt="Isis Ochoa - Presidenta" class="quienes__img-pres">
+                    <div class="quienes__img-pres-name">Isis Ochoa<br><span style="font-size:0.95em;color:#388e3c;font-weight:400;">Presidenta</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ========== PIE DE PÁGINA/Footer ========== -->
     <footer class="footer">
         <div class="container">
@@ -352,7 +614,37 @@
 
     <script src="script.js"></script>
     <script src="enhanced-animations.js"></script>
-    
+    <script>
+        // Solución: asegurar que la pantalla de carga se oculte correctamente
+        window.addEventListener('DOMContentLoaded', function() {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                setTimeout(() => {
+                    loading.classList.add('hidden');
+                    setTimeout(() => {
+                        if (loading.parentNode) loading.parentNode.removeChild(loading);
+                    }, 500);
+                }, 1000);
+            }
+        });
+        
+        
+    </script>
+    <script>
+window.addEventListener("message", function(event) {
+    if (event.data && event.data.info && event.data.estado) {
+        document.getElementById("info-estado").innerHTML = `
+            <h2 style="color:#1976d2; margin-top:0;">${event.data.estado.toUpperCase()}</h2>
+            ${event.data.info}
+        `;
+        setTimeout(function() {
+            document.getElementById("info-estado").scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+    }
+});
+</script>
+</body>
+</html>
     <!-- ========== CHATBASE CHATBOT ========== -->
     <script>
         (function(){

@@ -57,9 +57,12 @@ window.addEventListener('scroll', () => {
 });
 
 // Botón de scroll del hero
-document.querySelector('.hero__scroll').addEventListener('click', () => {
-    scrollToSection('presentacion');
-});
+const heroScrollBtn = document.querySelector('.hero__scroll');
+if (heroScrollBtn) {
+    heroScrollBtn.addEventListener('click', () => {
+        scrollToSection('presentacion');
+    });
+}
 
 // Funcionalidad del reproductor de video
 function playVideo() {
@@ -129,27 +132,23 @@ document.querySelectorAll('.stat__card').forEach(card => {
 // ========== FUNCIÓN DE ANIMACIÓN DE NÚMEROS ==========
 function animateNumber(element, start, end, duration) {
     const startTime = performance.now();
-    const isPercentage = element.textContent.includes('%');
-    
+    const isPercentage = /%/.test(element.textContent);
+    // Limpiar el contenido antes de animar
+    element.textContent = isPercentage ? start + '%' : start;
     function updateNumber(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
-        // Función de suavizado
         const easeOutQuart = 1 - Math.pow(1 - progress, 4);
         const current = Math.floor(start + (end - start) * easeOutQuart);
-        
         if (isPercentage) {
             element.textContent = current + '%';
         } else {
             element.textContent = current;
         }
-        
         if (progress < 1) {
             requestAnimationFrame(updateNumber);
         }
     }
-    
     requestAnimationFrame(updateNumber);
 }
 
@@ -157,7 +156,7 @@ function animateNumber(element, start, end, duration) {
 function createCharts() {
     // Gráfico de síntomas (Gráfico circular)
     createPieChart('symptoms-chart', {
-        labels: ['Ansiedad', 'Depresión', 'Ambos', 'Otros síntomas'],
+        labels: ['Ansiedad', 'Depresión', 'Ambos', 'Otros'],
         data: [35, 28, 30, 7],
         colors: ['#FFCC00', '#2E86C1', '#5DADE2', '#E8E8E8']
     });
@@ -170,28 +169,107 @@ function createCharts() {
     });
 }
 
+// Implementación simple de gráfico de barras
+function createBarChart(containerId, data) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+
+    let labels = [...data.labels];
+    let values = [...data.data];
+    let colors = [...data.colors];
+    // Quitar duplicados de "Incertidumbre"
+    const incIndex = labels.findIndex(l => l.toLowerCase() === 'incertidumbre');
+    const incLastIndex = labels.lastIndexOf('Incertidumbre');
+    if (incIndex !== -1 && incLastIndex !== incIndex) {
+        labels.splice(incLastIndex, 1);
+        values.splice(incLastIndex, 1);
+        colors.splice(incLastIndex, 1);
+    }
+
+    const maxValue = Math.max(...values);
+    const chartHeight = 200;
+    const barWidth = 48; // Más ancho para mejor visibilidad
+    const minBarGap = 80; // Más separación entre barras
+    // Ajustar tamaño de fuente y separación para legibilidad
+    const labelFontSize = 18; // Tamaño legible pero no excesivo
+    const chartWidth = (barWidth + minBarGap) * labels.length + minBarGap;
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.setAttribute('viewBox', `0 0 ${chartWidth} ${chartHeight + 120}`);
+
+    labels.forEach((label, index) => {
+        const value = values[index];
+        const color = colors[index];
+        const barHeight = (value / maxValue) * chartHeight;
+        const x = minBarGap + index * (barWidth + minBarGap);
+        const y = chartHeight - barHeight + 30;
+        // Barra
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', x);
+        rect.setAttribute('y', y);
+        rect.setAttribute('width', barWidth);
+        rect.setAttribute('height', barHeight);
+        rect.setAttribute('fill', color);
+        rect.setAttribute('rx', '8');
+        rect.style.transition = 'all 0.3s ease';
+        rect.style.cursor = 'pointer';
+        rect.addEventListener('mouseenter', function() {
+            this.style.opacity = '0.8';
+            this.style.transform = 'translateY(-5px)';
+        });
+        rect.addEventListener('mouseleave', function() {
+            this.style.opacity = '1';
+            this.style.transform = 'translateY(0)';
+        });
+        svg.appendChild(rect);
+        // Valor
+        const valueText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        valueText.setAttribute('x', x + barWidth / 2);
+        valueText.setAttribute('y', y - 16);
+        valueText.setAttribute('text-anchor', 'middle');
+        valueText.setAttribute('font-size', '24');
+        valueText.setAttribute('font-weight', 'bold');
+        valueText.setAttribute('fill', '#222');
+        valueText.textContent = value + '%';
+        svg.appendChild(valueText);
+        // Etiqueta
+        const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        labelText.setAttribute('x', x + barWidth / 2);
+        labelText.setAttribute('y', chartHeight + 95);
+        labelText.setAttribute('text-anchor', 'middle');
+        labelText.setAttribute('font-size', labelFontSize);
+        labelText.setAttribute('fill', '#444');
+        labelText.setAttribute('alignment-baseline', 'middle');
+        labelText.textContent = label;
+        svg.appendChild(labelText);
+    });
+    container.appendChild(svg);
+}
+
 // Implementación simple de gráfico circular
 function createPieChart(containerId, data) {
     const container = document.getElementById(containerId);
     if (!container) return;
-    
+    // Limpiar el contenedor antes de dibujar
+    container.innerHTML = '';
     const total = data.data.reduce((sum, value) => sum + value, 0);
     let currentAngle = 0;
-    
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('width', '100%');
     svg.setAttribute('height', '100%');
     svg.setAttribute('viewBox', '0 0 200 200');
     svg.style.transform = 'rotate(-90deg)';
-    
     const radius = 80;
     const centerX = 100;
     const centerY = 100;
-    
+    // Guardar los textos para dibujarlos después de los paths
+    const pieTexts = [];
     data.data.forEach((value, index) => {
         const percentage = (value / total) * 100;
         const angle = (value / total) * 360;
-        
         if (percentage > 0) {
             const path = createPieSlice(centerX, centerY, radius, currentAngle, currentAngle + angle);
             path.setAttribute('fill', data.colors[index]);
@@ -199,25 +277,71 @@ function createPieChart(containerId, data) {
             path.setAttribute('stroke-width', '2');
             path.style.transition = 'all 0.3s ease';
             path.style.cursor = 'pointer';
-            
-            // Agregar efecto hover
+            // Solo mostrar el porcentaje dentro de la porción si es mayor a 10%
+            if (percentage >= 10) {
+                const midAngle = currentAngle + angle / 2;
+                const labelX = centerX + (radius / 1.5) * Math.cos((midAngle * Math.PI) / 180);
+                const labelY = centerY + (radius / 1.5) * Math.sin((midAngle * Math.PI) / 180);
+                pieTexts.push({
+                    x: labelX,
+                    y: labelY,
+                    text: Math.round(percentage) + '%',
+                    fill: '#222',
+                    fontSize: '13'
+                });
+            }
+            // Tooltip para porciones pequeñas
+            if (percentage < 10) {
+                path.addEventListener('mouseenter', function(e) {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'pie-tooltip';
+                    tooltip.style.position = 'fixed';
+                    tooltip.style.background = '#fff';
+                    tooltip.style.color = '#222';
+                    tooltip.style.padding = '4px 10px';
+                    tooltip.style.borderRadius = '6px';
+                    tooltip.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
+                    tooltip.style.fontSize = '13px';
+                    tooltip.style.pointerEvents = 'none';
+                    tooltip.textContent = `${data.labels[index]} (${data.data[index]}%)`;
+                    document.body.appendChild(tooltip);
+                    function moveTooltip(ev) {
+                        tooltip.style.left = (ev.clientX + 10) + 'px';
+                        tooltip.style.top = (ev.clientY - 10) + 'px';
+                    }
+                    moveTooltip(e);
+                    window.addEventListener('mousemove', moveTooltip);
+                    path.addEventListener('mouseleave', function() {
+                        tooltip.remove();
+                        window.removeEventListener('mousemove', moveTooltip);
+                    }, { once: true });
+                });
+            }
             path.addEventListener('mouseenter', function() {
                 this.style.transform = 'scale(1.05)';
                 this.style.transformOrigin = `${centerX}px ${centerY}px`;
             });
-            
             path.addEventListener('mouseleave', function() {
                 this.style.transform = 'scale(1)';
             });
-            
             svg.appendChild(path);
             currentAngle += angle;
         }
     });
-    
+    // Dibujar los textos después de los paths para que no queden debajo
+    pieTexts.forEach(t => {
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', t.x);
+        text.setAttribute('y', t.y);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', t.fontSize);
+        text.setAttribute('fill', t.fill);
+        text.setAttribute('alignment-baseline', 'middle');
+        text.textContent = t.text;
+        svg.appendChild(text);
+    });
     container.appendChild(svg);
-    
-    // Crear leyenda
+    // Crear leyenda SIEMPRE recorriendo todos los labels
     const legend = document.createElement('div');
     legend.style.cssText = `
         display: flex;
@@ -227,7 +351,6 @@ function createPieChart(containerId, data) {
         margin-top: 1rem;
         font-size: 0.9rem;
     `;
-    
     data.labels.forEach((label, index) => {
         const legendItem = document.createElement('div');
         legendItem.style.cssText = `
@@ -235,7 +358,6 @@ function createPieChart(containerId, data) {
             align-items: center;
             gap: 0.5rem;
         `;
-        
         const colorBox = document.createElement('div');
         colorBox.style.cssText = `
             width: 12px;
@@ -243,84 +365,13 @@ function createPieChart(containerId, data) {
             background: ${data.colors[index]};
             border-radius: 2px;
         `;
-        
         const text = document.createElement('span');
         text.textContent = `${label} (${data.data[index]}%)`;
-        
         legendItem.appendChild(colorBox);
         legendItem.appendChild(text);
         legend.appendChild(legendItem);
     });
-    
     container.appendChild(legend);
-}
-
-// Implementación simple de gráfico de barras
-function createBarChart(containerId, data) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    
-    const maxValue = Math.max(...data.data);
-    const chartHeight = 200;
-    const chartWidth = 300;
-    const barWidth = chartWidth / data.data.length - 10;
-    
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', '100%');
-    svg.setAttribute('height', '100%');
-    svg.setAttribute('viewBox', `0 0 ${chartWidth + 50} ${chartHeight + 100}`);
-    
-    data.data.forEach((value, index) => {
-        const barHeight = (value / maxValue) * chartHeight;
-        const x = index * (barWidth + 10) + 25;
-        const y = chartHeight - barHeight + 30;
-        
-        // Crear barra
-        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        rect.setAttribute('x', x);
-        rect.setAttribute('y', y);
-        rect.setAttribute('width', barWidth);
-        rect.setAttribute('height', barHeight);
-        rect.setAttribute('fill', data.colors[index]);
-        rect.setAttribute('rx', '4');
-        rect.style.transition = 'all 0.3s ease';
-        rect.style.cursor = 'pointer';
-        
-        // Agregar efecto hover
-        rect.addEventListener('mouseenter', function() {
-            this.style.opacity = '0.8';
-            this.style.transform = 'translateY(-5px)';
-        });
-        
-        rect.addEventListener('mouseleave', function() {
-            this.style.opacity = '1';
-            this.style.transform = 'translateY(0)';
-        });
-        
-        svg.appendChild(rect);
-        
-        // Agregar etiqueta de valor
-        const valueText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        valueText.setAttribute('x', x + barWidth / 2);
-        valueText.setAttribute('y', y - 5);
-        valueText.setAttribute('text-anchor', 'middle');
-        valueText.setAttribute('font-size', '12');
-        valueText.setAttribute('fill', '#333');
-        valueText.textContent = value + '%';
-        svg.appendChild(valueText);
-        
-        // Agregar etiqueta
-        const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        labelText.setAttribute('x', x + barWidth / 2);
-        labelText.setAttribute('y', chartHeight + 50);
-        labelText.setAttribute('text-anchor', 'middle');
-        labelText.setAttribute('font-size', '11');
-        labelText.setAttribute('fill', '#666');
-        labelText.textContent = data.labels[index];
-        svg.appendChild(labelText);
-    });
-    
-    container.appendChild(svg);
 }
 
 // Función auxiliar para crear el path de una porción del gráfico circular
@@ -356,6 +407,51 @@ window.addEventListener('scroll', () => {
     parallaxElements.forEach(element => {
         const speed = 0.5;
         element.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+});
+
+// ========== MOSTRAR SOLO UNA SECCIÓN A LA VEZ CON ANIMACIÓN UNIVERSAL ==========
+function showSection(sectionId) {
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        if (section.id === sectionId) {
+            // Si ya está visible y opaca, no hacer nada
+            if (section.style.display === 'none' || section.style.opacity === '0' || getComputedStyle(section).display === 'none') {
+                section.style.display = '';
+                section.style.transition = 'opacity 0.5s';
+                section.style.opacity = 0;
+                setTimeout(() => {
+                    section.style.opacity = 1;
+                }, 10);
+            }
+        } else {
+            if (section.style.display !== 'none' && getComputedStyle(section).display !== 'none') {
+                section.style.transition = 'opacity 0.5s';
+                section.style.opacity = 0;
+                setTimeout(() => {
+                    section.style.display = 'none';
+                }, 500);
+            }
+        }
+    });
+}
+
+// Mostrar solo la sección de inicio al cargar
+window.addEventListener('DOMContentLoaded', () => {
+    showSection('inicio');
+});
+
+// Manejar clics en la barra de navegación para mostrar solo la sección correspondiente
+const navLinks = document.querySelectorAll('.nav__link');
+navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href').replace('#', '');
+        showSection(targetId);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Opcional: cerrar menú móvil si está abierto
+        navMenu.classList.remove('active');
+        // Prevenir el scroll automático por defecto
+        e.preventDefault();
     });
 });
 
@@ -438,15 +534,14 @@ const performanceObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const element = entry.target;
-            
             // Agregar animaciones intensivas de CPU solo cuando el elemento es visible
             if (element.classList.contains('hero__brain')) {
                 element.style.animation = 'pulse 2s infinite';
             }
-            
-            if (element.classList.contains('stat__card')) {
-                element.querySelector('.stat__card::before').style.animation = 'rotate 10s linear infinite';
-            }
+            // Eliminar la siguiente línea porque no se puede manipular pseudoelementos desde JS
+            // if (element.classList.contains('stat__card')) {
+            //     element.querySelector('.stat__card::before').style.animation = 'rotate 10s linear infinite';
+            // }
         }
     });
 }, { rootMargin: '50px' });

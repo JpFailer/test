@@ -71,5 +71,11 @@ function enhanceCardAnimations() {
     });
 }
 
-// ========== AGREGAR EFECTO DE ROTACIÓN AL LOGO ========// Archivo simplificado - sin animaciones problemáticasons;
-}
+// ========== AGREGAR EFECTO DE ROTACIÓN AL LOGO ==========
+// (Funcionalidad pendiente o eliminada, línea eliminada por estar incompleta)
+
+// Inicializar funciones automáticamente si no existe
+if (typeof initializeScrollObserver === 'function') initializeScrollObserver();
+if (typeof initializeParallax === 'function') initializeParallax();
+if (typeof addGlowEffects === 'function') addGlowEffects();
+if (typeof enhanceCardAnimations === 'function') enhanceCardAnimations();
