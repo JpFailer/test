@@ -602,8 +602,14 @@ body {
 }
 
 .chart {
-    height: 300px;
-    position: relative;
+    width: 100%;
+    max-width: 500px;
+    min-width: 280px;
+    height: 320px;
+    margin: 0 auto 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .alert__box {
@@ -1428,18 +1434,6 @@ body {
     }
 }
 
-/* Efectos hover para tarjetas */
-.stat__card:hover {
-    transform: translateY(-10px) scale(1.03) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
-    animation: cardHoverGlow 0.3s ease-in-out;
-}
-
-@keyframes cardHoverGlow {
-    0% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
-    50% { box-shadow: 0 20px 40px rgba(255, 204, 0, 0.2); }
-    100% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
-}
 
 /* Iconos pulsantes */
 .pulsing-icon {
@@ -1469,27 +1463,6 @@ body {
     100% { transform: rotate(0deg); }
 }
 
-/* Animación de onda para bordes */
-.wave-border {
-    position: relative;
-    overflow: hidden;
-}
-
-.wave-border::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 204, 0, 0.3), transparent);
-    animation: waveMove 3s linear infinite;
-}
-
-@keyframes waveMove {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
 /* Los botones de l/* ========== SECCIÓN PROPUESTAS TECNOLÓGICAS ========== */
 .propuestas-tecnologicas {
     background-color: var(--color-light-gray);
@@ -1556,24 +1529,108 @@ body {
         grid-template-columns: 1fr;
     }
 }
-#info-estado {
-    max-width: 700px;
-    margin: 2.5rem auto 0 auto;
-    padding: 1.5rem;
+.info-estado {
+    background: #fffbe6;
+    border: 2px solid #ffcc00;
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem auto 0 auto;
+    max-width: 500px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    font-size: 1.1rem;
+    color: #333;
+    transition: box-shadow 0.2s;
+}
+.info-estado h3 {
+    margin-top: 0;
+    color: #b38b00;
+}
+.statistics svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 800px;
+    margin: 0 auto 1.5rem auto;
+}
+/* Zonas amarillas (occidente y noroccidente) */
+#VE-K, /* Lara */
+#VE-V, /* Zulia */
+#VE-U, /* Yaracuy */
+#VE-T, /* Trujillo */
+#VE-S, /* Táchira */
+#VE-O, /* Monagas */
+#VE-I, /* Falcón */
+#VE-L /* Mérida */
+
+
+{
+    fill: #FFEB3B !important;
+    stroke: #222;
+}
+
+/* Zonas azules (centro-norte y oriente) */
+#VE-J, /* Guárico */
+#VE-H, /* Cojedes */
+#VE-G, /* Carabobo */
+#VE-E, /* Barinas */
+#VE-D, /* Aragua */
+#VE-C, /* Apure */
+#VE-A, /* Distrito Capital */
+#VE-N, /* Monagas */
+#VE-M, /* Miranda */
+#VE-R, /* Sucre */
+#VE-P, /* Portuguesa */
+#VE-W,  /* Dependencias Federales */
+#VE-O, /* Nueva Esparta */
+#VE-X,  /* Vargas (La Guaira) */
+#VE-B  /* Anzoátegui */
+{
+    fill: #2196F3 !important;
+    stroke: #222;
+}
+
+/* Zonas rojas (sur y oriente profundo) */
+#VE-Z, /* Amazonas */
+#VE-Y, /* Delta Amacuro */
+#VE-F /* Bolívar */
+{
+    fill: #F44336 !important;
+    stroke: #222;
+}
+/* ========== SECCIÓN RECURSOS ========== */
+.recursos {
+    padding: 4rem 0;
+    background: #f5f7fa;
+}
+
+.recursos__content {
+    display: flex; /* Activa flexbox */
+    flex-wrap: wrap; /* Permite que los cuadros se ajusten en varias filas */
+    gap: 2rem; /* Espaciado entre los cuadros */
+    justify-content: flex-start; /* Alinea los cuadros hacia la izquierda */
+}
+
+.recurso__item {
+    width: calc(33.333% - 2rem); /* Ajusta el ancho para que haya tres cuadros por fila */
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 24px rgba(67,160,71,0.08);
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 1.1rem;
-    color: #222;
-    line-height: 1.6;
-    text-align: left;
-    overflow-y: auto;
-    max-height: 400px;
-    display: none;
-}
-#info-estado h2 {
+    padding: 1.5rem;
     text-align: center;
+}
+
+.recurso__image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
     margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.recurso__link {
+    display: inline-block;
+    margin-top: 1rem;
     color: #1976d2;
+    font-weight: 600;
+    text-decoration: none;
 }

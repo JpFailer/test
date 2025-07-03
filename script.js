@@ -195,17 +195,19 @@ function createBarChart(containerId, data) {
     const labelFontSize = 18; // Tamaño legible pero no excesivo
     const chartWidth = (barWidth + minBarGap) * labels.length + minBarGap;
 
+    // Ajustar el viewBox para dejar más espacio arriba (antes era chartHeight + 120)
+    const extraTop = 40; // Espacio extra arriba para los valores
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('width', '100%');
     svg.setAttribute('height', '100%');
-    svg.setAttribute('viewBox', `0 0 ${chartWidth} ${chartHeight + 120}`);
+    svg.setAttribute('viewBox', `0 0 ${chartWidth} ${chartHeight + 120 + extraTop}`);
 
     labels.forEach((label, index) => {
         const value = values[index];
         const color = colors[index];
         const barHeight = (value / maxValue) * chartHeight;
         const x = minBarGap + index * (barWidth + minBarGap);
-        const y = chartHeight - barHeight + 30;
+        const y = chartHeight - barHeight + 30 + extraTop;
         // Barra
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         rect.setAttribute('x', x);
@@ -225,10 +227,10 @@ function createBarChart(containerId, data) {
             this.style.transform = 'translateY(0)';
         });
         svg.appendChild(rect);
-        // Valor
+        // Valor (porcentaje) - subirlo más para que no se corte
         const valueText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         valueText.setAttribute('x', x + barWidth / 2);
-        valueText.setAttribute('y', y - 16);
+        valueText.setAttribute('y', y - 24); // antes era y - 16, ahora más arriba
         valueText.setAttribute('text-anchor', 'middle');
         valueText.setAttribute('font-size', '24');
         valueText.setAttribute('font-weight', 'bold');
@@ -238,7 +240,7 @@ function createBarChart(containerId, data) {
         // Etiqueta
         const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         labelText.setAttribute('x', x + barWidth / 2);
-        labelText.setAttribute('y', chartHeight + 95);
+        labelText.setAttribute('y', chartHeight + 95 + extraTop);
         labelText.setAttribute('text-anchor', 'middle');
         labelText.setAttribute('font-size', labelFontSize);
         labelText.setAttribute('fill', '#444');
@@ -265,8 +267,7 @@ function createPieChart(containerId, data) {
     const radius = 80;
     const centerX = 100;
     const centerY = 100;
-    // Guardar los textos para dibujarlos después de los paths
-    const pieTexts = [];
+    // Eliminar textos de porcentaje dentro del pastel
     data.data.forEach((value, index) => {
         const percentage = (value / total) * 100;
         const angle = (value / total) * 360;
@@ -277,19 +278,6 @@ function createPieChart(containerId, data) {
             path.setAttribute('stroke-width', '2');
             path.style.transition = 'all 0.3s ease';
             path.style.cursor = 'pointer';
-            // Solo mostrar el porcentaje dentro de la porción si es mayor a 10%
-            if (percentage >= 10) {
-                const midAngle = currentAngle + angle / 2;
-                const labelX = centerX + (radius / 1.5) * Math.cos((midAngle * Math.PI) / 180);
-                const labelY = centerY + (radius / 1.5) * Math.sin((midAngle * Math.PI) / 180);
-                pieTexts.push({
-                    x: labelX,
-                    y: labelY,
-                    text: Math.round(percentage) + '%',
-                    fill: '#222',
-                    fontSize: '13'
-                });
-            }
             // Tooltip para porciones pequeñas
             if (percentage < 10) {
                 path.addEventListener('mouseenter', function(e) {
@@ -328,18 +316,7 @@ function createPieChart(containerId, data) {
             currentAngle += angle;
         }
     });
-    // Dibujar los textos después de los paths para que no queden debajo
-    pieTexts.forEach(t => {
-        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.setAttribute('x', t.x);
-        text.setAttribute('y', t.y);
-        text.setAttribute('text-anchor', 'middle');
-        text.setAttribute('font-size', t.fontSize);
-        text.setAttribute('fill', t.fill);
-        text.setAttribute('alignment-baseline', 'middle');
-        text.textContent = t.text;
-        svg.appendChild(text);
-    });
+    // Ya no se dibujan textos dentro del pastel
     container.appendChild(svg);
     // Crear leyenda SIEMPRE recorriendo todos los labels
     const legend = document.createElement('div');
@@ -562,7 +539,78 @@ Website creado con HTML, CSS y JavaScript
 Enfocado en la concienciación sobre salud mental
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `);
+// Información de los estados de Venezuela para el mapa interactivo
+const estadosVenezuela = {
+"VE-A": { nombre: "Distrito Capital", info: "Se abordó el cuestionario digital en los siguientes lugares: Superintendencia de la Seguridad Social, Casa Petra Barreto de la Vega, Centro de Diagnóstico Integral (CDI) Pedro Fontes de Montalbán, Universidad Bolivariana de Venezuela (UBV), Instituto Nacional de Servicios Sociales (INASS), Unidad Educativa Nacional Pedro Fontes y Universidad Nacional de la Seguridad (UNES)." },
+"VE-B": { nombre: "Anzoátegui", info: "Investigación próxima a realizar." },
+"VE-C": { nombre: "Apure", info: "Investigación próxima a realizar." },
+"VE-D": { nombre: "Aragua", info: "Investigación próxima a realizar." },
+"VE-E": { nombre: "Barinas", info: "Investigación próxima a realizar." },
+"VE-F": { nombre: "Bolívar", info: "Investigación próxima a realizar.." },
+"VE-G": { nombre: "Carabobo", info: "durante el mes de noviembre del año 2024 se desarrollaron varias visitas y acuerdos, principalmente en las instalaciones de FONDECO con la Presidenta de la institución, representantes de la comunidad entre ellos las Brigadas de Articulación Comunal (BRAC) se decidió levantar la información en la comunidad Charneca. Posteriormente, en el mes de diciembre se desarrolló un taller vivencial a los trabajadoras y trabajadores de la institución, así como a algunos integrantes de los BRAC. En este mes de diciembre también se aplicó el cuestionario digital a los trabajadoras y trabajadores del IPASME de Valencia. A partir del mes de enero del presente año se ejecutó la inducción al cuestionario digital a dos representantes del Movimiento de Mujeres Manuelitas Sanz con el compromiso de hacer la distribución a Bolipuertos, instituciones relacionadas al transportes terrestres y acuáticos de los estados: La Guaica, Distrito Capital y Miranda. " },
+"VE-H": { nombre: "Cojedes", info: "Investigación próxima a realizar." },
+"VE-I": { nombre: "Falcón", info: "Investigación próxima a realizar." },
+"VE-J": { nombre: "Guárico", info: "Investigación próxima a realizar." },
+"VE-K": { nombre: "Lara", info: "Investigación próxima a realizar." },
+"VE-L": { nombre: "Mérida", info: "Investigación próxima a realizar." },
+"VE-M": { nombre: "Miranda", info: "En el estado Miranda, municipio Cristóbal Rojas (Charallave) antes del levantamiento de la información durante el mes de noviembre del año 2024 se desarrollaron algunas reuniones entre ellas el primer encuentro para la presentación del proyecto e inducción sobre el cuestionario digital en la Sede del del PSUV con diferentes representantes de enlace de la comunidad de Charallave. Durante este mes continuamos con la visita casa a casa de la comunidad: indios de Charallave, seguidamente se efectuó el taller vivencial en la sede del partido PSUV a representantes regionales y sectoriales. Para diciembre del mismo año se continuo con la visita casa a casa a las siguientes comunidades de este municipio: Comunidad Milagro de Dios, Comunidad de Jabillito, Sector D, Jabillito, Barrio Nuevo. Durante el mes de enero del año 2025 se levantó la información del cuestionario digital en las comunidades: Las Aguitas Vaquera y Ferrenorte, en esta última comunidad se observó un alto porcentaje de vulnerabilidad, lo cual se evidenció las malas condiciones de las viviendas y la baja situación económica de los habitantes entrevistados.   Continuando con el desarrollo de los cuestionarios digitales a través de las visitas casa a casa durante el mes enero del año 2025 en la comunidad Macarena Sur del municipio Guaicaipuro se observaron diferentes sectores con distintas condiciones de vivienda y acceso a servicios (Los Teques). En el estado Aragua se desarrolló la aplicación del cuestionario digital con el apoyo de la Alcaldía del municipio Santos Michelena a través de dos días de abordajes durante el mes de enero del año 2025 en los sectores Bucaral, Bucaral 2 y Brisas de Aragua parte baja." },
+"VE-N": { nombre: "Monagas", info: "Investigación próxima a realizar." },
+"VE-O": { nombre: "Nueva Esparta", info: "Investigación próxima a realizar.." },
+"VE-P": { nombre: "Portuguesa", info: "Investigación próxima a realizar." },
+"VE-R": { nombre: "Sucre", info: "Investigación próxima a realizar.." },
+"VE-S": { nombre: "Táchira", info: "Investigación próxima a realizar." },
+"VE-T": { nombre: "Trujillo", info: "Investigación próxima a realizar." },
+"VE-U": { nombre: "Yaracuy", info: "Investigación próxima a realizar.." },
+"VE-V": { nombre: "Zulia", info: "Investigación próxima a realizar." },
+"VE-W": { nombre: "Dependencias Federales", info: "Investigación próxima a realizar." },
+"VE-X": { nombre: "Vargas (La Guaira)", info: "El abordaje en el estado La Guaira se inicio en el mes de noviembre del año 2024, gracias al apoyo de los representantes de la Comuna Guaicamacuto, en esta oportunidad se visitó a diferentes casas de la Comuna, específicamente en el sector parte baja del teleférico." },
+"VE-Y": { nombre: "Delta Amacuro", info: "Investigación próxima a realizar." },
+"VE-Z": { nombre: "Amazonas", info: "Investigación próxima a realizar" }
+};
 
+// Interactividad del mapa de Venezuela
+document.addEventListener("DOMContentLoaded", function() {
+    // Selecciona el contenedor donde se mostrará la info
+    const infoEstado = document.getElementById('info-estado');
+    // Recorre todos los estados definidos en el objeto
+    Object.keys(estadosVenezuela).forEach(id => {
+        const estadoPath = document.getElementById(id);
+        if (estadoPath) {
+            // Accesibilidad: cursor pointer y focusable
+            estadoPath.style.cursor = 'pointer';
+            estadoPath.setAttribute('tabindex', '0');
+            // Evento click/tap
+            estadoPath.addEventListener('click', function() {
+                mostrarInfoEstado(id);
+            });
+            // Evento teclado (Enter/Espacio)
+            estadoPath.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    mostrarInfoEstado(id);
+                }
+            });
+            // Efecto hover
+            estadoPath.addEventListener('mouseenter', function() {
+                estadoPath.style.filter = 'brightness(1.2) drop-shadow(0 0 6px #FFCC00)';
+            });
+            estadoPath.addEventListener('mouseleave', function() {
+                estadoPath.style.filter = '';
+            });
+        }
+    });
+
+    function mostrarInfoEstado(id) {
+        const estado = estadosVenezuela[id];
+        if (estado && infoEstado) {
+            infoEstado.innerHTML = `
+                <h3>${estado.nombre}</h3>
+                <p>${estado.info}</p>
+            `;
+            // Opcional: scroll al contenedor en móvil
+            infoEstado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+});
 
 // ========== INICIALIZAR TODAS LAS FUNCIONES ==========
 document.addEventListener("DOMContentLoaded", function() {
